@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import axios from "axios";
 import Beers from "./Beers";
 import Loading from "./Loading";
+import styled from "styled-components";
 import { beerImage } from "../assets/images";
+
+const Container = styled.div`
+  height: 100%;
+`;
 
 class Landing extends Component {
   state = {
@@ -18,8 +23,7 @@ class Landing extends Component {
   render() {
     const { isLoading, beers } = this.state;
     return (
-      <>
-        {" "}
+      <Container>
         {isLoading ? (
           <Loading />
         ) : (
@@ -47,7 +51,7 @@ class Landing extends Component {
             )}
           </>
         )}
-      </>
+      </Container>
     );
   }
 }
