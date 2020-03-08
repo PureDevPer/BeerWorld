@@ -8,7 +8,7 @@ export default createGlobalStyle`
         box-sizing:border-box;
     }
     body {
-        background-color:"#FAFAFA";
+        background-color:#EFF3F7;
         font-size:18px;
         font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }

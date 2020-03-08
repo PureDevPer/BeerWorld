@@ -8,7 +8,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   font-weight: 600;
-  margin-top: 25%;
+  margin-top: 20%;
 `;
 
 const Loading = () => {

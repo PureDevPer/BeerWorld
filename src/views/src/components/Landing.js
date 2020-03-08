@@ -9,6 +9,15 @@ const Container = styled.div`
   height: 100%;
 `;
 
+const BeersContainer = styled.div`
+  width: 100%;
+  display: grid;
+  grid-gap: 50px;
+  grid-row-gap: 50px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  padding: 0px 50px;
+`;
+
 class Landing extends Component {
   state = {
     beers: [],
@@ -22,12 +31,13 @@ class Landing extends Component {
 
   render() {
     const { isLoading, beers } = this.state;
+
     return (
       <Container>
         {isLoading ? (
           <Loading />
         ) : (
-          <>
+          <BeersContainer>
             {beers.map(beer =>
               beer.labels ? (
                 <Beers
@@ -49,7 +59,7 @@ class Landing extends Component {
                 />
               )
             )}
-          </>
+          </BeersContainer>
         )}
       </Container>
     );
