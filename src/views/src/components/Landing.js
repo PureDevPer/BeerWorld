@@ -7,6 +7,7 @@ import { beerImage } from "../assets/images";
 
 const Container = styled.div`
   height: 100%;
+  margin-bottom: 50px;
 `;
 
 const BeersContainer = styled.div`

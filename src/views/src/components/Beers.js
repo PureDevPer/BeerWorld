@@ -1,12 +1,11 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { beerImage, HeartEmpty } from "../assets/images";
+import { beerImage, HeartEmpty, HeartFull } from "../assets/images";
 
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  /* align-items: flex-start; */
   flex-wrap: wrap;
   margin-top: 40px;
   background-color: #ffffff;
@@ -41,12 +40,6 @@ const BeersTop__details = styled.div`
   text-align: center;
 `;
 
-// const Name = styled.p`
-//   font-size: 18x;
-//   font-weight: 600;
-//   margin-top: 15px;
-// `;
-
 const Header = styled.p`
   margin-top: 15px;
   &:first-child {
@@ -61,7 +54,6 @@ const Header = styled.p`
   }
   &:last-child {
     margin-top: 5px;
-    cursor: pointer;
   }
 `;
 
@@ -72,39 +64,64 @@ const Description = styled.div`
   font-size: 16px;
 `;
 
-const Beers = ({ name, picture, description, abv }) => {
-  return (
-    <Container>
-      <BeersTop>
-        <>
-          {picture ? (
-            <Image src={picture} alt={name} title={name} />
-          ) : (
-            <Image src={beerImage} alt={name} title={name} />
-          )}
-        </>
-        <BeersTop__details>
-          <Header>{name}</Header>
-          {abv ? <Header>Abv: {abv}</Header> : <Header></Header>}
-          <Header>
-            <HeartEmpty />
-          </Header>
-        </BeersTop__details>
-      </BeersTop>
-      {description ? (
-        <Description>{description.slice(0, 160)} ...</Description>
-      ) : (
-        <Description></Description>
-      )}
-    </Container>
-  );
-};
+const Button = styled.button`
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
 
-Beers.prototype = {
+  &:focus {
+    outline: none;
+  }
+`;
+
+class Beers extends Component {
+  state = {
+    isFavorite: false
+  };
+
+  handleClick = () => {
+    const { isFavorite } = this.state;
+    this.setState({ isFavorite: !isFavorite });
+  };
+
+  render() {
+    const { isFavorite } = this.state;
+    const { name, picture, description, abv } = this.props;
+    return (
+      <Container>
+        <BeersTop>
+          <>
+            {picture ? (
+              <Image src={picture} alt={name} title={name} />
+            ) : (
+              <Image src={beerImage} alt={name} title={name} />
+            )}
+          </>
+          <BeersTop__details>
+            <Header>{name}</Header>
+            {abv ? <Header>Abv: {abv}</Header> : <Header></Header>}
+            <Header>
+              <Button onClick={this.handleClick}>
+                {isFavorite ? <HeartFull /> : <HeartEmpty />}
+              </Button>
+            </Header>
+          </BeersTop__details>
+        </BeersTop>
+        {description ? (
+          <Description>{description.slice(0, 170)} ...</Description>
+        ) : (
+          <Description></Description>
+        )}
+      </Container>
+    );
+  }
+}
+
+Beers.propTypes = {
   name: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
   description: PropTypes.string,
-  abv: PropTypes.number.isRequired
+  abv: PropTypes.string
 };
 
 export default Beers;
