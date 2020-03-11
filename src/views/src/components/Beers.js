@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { beerImage, HeartEmpty, HeartFull } from "../assets/images";
@@ -81,6 +82,15 @@ class Beers extends Component {
 
   handleClick = () => {
     const { isFavorite } = this.state;
+    const { id, picture, name, abv, description } = this.props;
+    console.log(this.props);
+    axios.post("http://localhost:5000/data", {
+      id,
+      picture,
+      name,
+      abv,
+      description
+    });
     this.setState({ isFavorite: !isFavorite });
   };
 
