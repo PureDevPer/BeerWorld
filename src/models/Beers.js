@@ -1,7 +1,10 @@
 import mongoose from "mongoose";
 
 const beerSchema = mongoose.Schema({
-  id: String,
+  id: {
+    type: String,
+    required: "ID is required"
+  },
   name: String,
   abv: Number,
   description: String,

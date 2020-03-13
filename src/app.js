@@ -3,7 +3,12 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import morgan from "morgan";
-import { getBeer, postBeer } from "./controller/beerController";
+import {
+  getBeer,
+  postBeer,
+  readBeer,
+  deleteBeer
+} from "./controller/beerController";
 
 dotenv.config();
 
@@ -14,8 +19,10 @@ app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => res.send("Hello"));
+// app.get("/", (req, res) => res.send("Hello"));
 app.get("/data", getBeer);
 app.post("/data", postBeer);
+app.get("/beers", readBeer);
+// app.delete("/delete/:id", deleteBeer);
 
 export default app;

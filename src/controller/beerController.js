@@ -1,5 +1,6 @@
 import axios from "axios";
 import dotenv from "dotenv";
+import Beer from "../models/Beers";
 
 dotenv.config();
 
@@ -12,6 +13,30 @@ export const getBeer = async (req, res) => {
   res.send(data);
 };
 
-export const postBeer = (req, res) => {
-  console.log(req.body);
+export const postBeer = async (req, res) => {
+  const {
+    body: { id, picture, name, abv, description }
+  } = req;
+
+  try {
+    const beers = await Beer({ id, picture, name, abv, description });
+    await beers.save();
+  } catch (error) {
+    res.send("Something is wrong!");
+  }
+};
+
+export const readBeer = async (req, res) => {
+  try {
+    const beers = await Beer.find({});
+    res.json(beers);
+  } catch (error) {
+    res.send("Something Wrong!");
+  }
+};
+
+export const deleteBeer = (req, res) => {
+  console.log(req.params.id);
+  console.log(req);
+  console.log("asdf");
 };
