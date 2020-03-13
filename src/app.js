@@ -23,6 +23,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/data", getBeer);
 app.post("/data", postBeer);
 app.get("/beers", readBeer);
-// app.delete("/delete/:id", deleteBeer);
+app.get("/delete/:id", deleteBeer);
 
 export default app;

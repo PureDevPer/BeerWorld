@@ -35,8 +35,15 @@ export const readBeer = async (req, res) => {
   }
 };
 
-export const deleteBeer = (req, res) => {
-  console.log(req.params.id);
-  console.log(req);
-  console.log("asdf");
+export const deleteBeer = async (req, res, next) => {
+  const {
+    params: { id }
+  } = req;
+  try {
+    await Beer.findOneAndDelete({ _id: id });
+    const beers = await Beer.find({});
+    res.json(beers);
+  } catch (error) {
+    res.send("Someting Wrong");
+  }
 };
