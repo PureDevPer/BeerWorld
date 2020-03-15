@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Beers from "./Beers";
 import Loading from "./Loading";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { beerImage } from "../assets/images";
 
@@ -26,7 +27,8 @@ class Landing extends Component {
   };
 
   async componentDidMount() {
-    const { data } = await axios.get("http://localhost:5000/data");
+    const { getBeerURL } = this.props;
+    const { data } = await axios.get(`http://localhost:5000/${getBeerURL}`);
     this.setState({ beers: data, isLoading: false });
   }
 
@@ -66,5 +68,9 @@ class Landing extends Component {
     );
   }
 }
+
+Landing.propTypes = {
+  getBeerURL: PropTypes.string.isRequired
+};
 
 export default Landing;

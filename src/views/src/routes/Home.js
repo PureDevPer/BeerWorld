@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <>
       <Title text="Beer World" />
-      <Landing />
+      <Landing getBeerURL="data" />
     </>
   );
 };

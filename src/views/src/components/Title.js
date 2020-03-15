@@ -4,7 +4,8 @@ import styled from "styled-components";
 
 const Header = styled.div`
   text-align: center;
-  margin: 30px 0px;
+  margin-top: 130px;
+  margin-bottom: 30px;
   font-size: 30px;
   font-weight: 700;
   text-transform: uppercase;
