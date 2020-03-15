@@ -101,8 +101,6 @@ class Beers extends Component {
     data.forEach(beer => {
       if (id === beer.id) this.setState({ isFavorite: beer.isFavorite });
     });
-    // console.log(this.props);
-    // console.log(data, data[0].isFavorite);
   }
 
   render() {

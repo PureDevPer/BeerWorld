@@ -1,22 +1,17 @@
 import React from "react";
 import GlobalStyles from "../styles/GlobalStyles";
-import Landing from "./Landing";
-import styled from "styled-components";
-
-const Header = styled.div`
-  text-align: center;
-  margin: 30px 0px;
-  font-size: 30px;
-  font-weight: 700;
-  text-transform: uppercase;
-`;
+import { BrowserRouter as Router } from "react-router-dom";
+import Header from "./Header";
+import Routes from "./Routes";
 
 const App = () => {
   return (
     <>
       <GlobalStyles />
-      <Header>Beer World</Header>
-      <Landing />
+      <Router>
+        <Header />
+        <Routes />
+      </Router>
     </>
   );
 };
