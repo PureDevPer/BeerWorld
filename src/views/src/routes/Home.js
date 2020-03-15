@@ -1,19 +1,11 @@
 import React from "react";
-import styled from "styled-components";
 import Landing from "../components/Landing";
-
-const Title = styled.div`
-  text-align: center;
-  margin: 30px 0px;
-  font-size: 30px;
-  font-weight: 700;
-  text-transform: uppercase;
-`;
+import Title from "../components/Title";
 
 const Home = () => {
   return (
     <>
-      <Title>Beer World</Title>
+      <Title text="Beer World" />
       <Landing />
     </>
   );
