@@ -89,7 +89,8 @@ class Beers extends Component {
       picture,
       name,
       abv,
-      description
+      description,
+      isFavorite: !isFavorite
     });
     this.setState({ isFavorite: !isFavorite });
   };

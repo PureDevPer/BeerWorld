@@ -8,7 +8,11 @@ const beerSchema = mongoose.Schema({
   name: String,
   abv: Number,
   description: String,
-  picture: String
+  picture: String,
+  isFavorite: {
+    type: Boolean,
+    required: "isFavorite is required"
+  }
 });
 
 const Beer = mongoose.model("Beer", beerSchema);
