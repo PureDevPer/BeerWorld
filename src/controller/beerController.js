@@ -20,11 +20,10 @@ export const postBeer = async (req, res) => {
 
   try {
     const hasBeers = await Beer.findOne({ id });
-    console.log(hasBeers);
-    if (hasBeers) updateBeer(hasBeers._id, isFavorite);
+    if (hasBeers) updateAndDeleteBeer(hasBeers._id);
     else createBeer(id, picture, name, abv, description, isFavorite);
   } catch (error) {
-    res.send("Something is wrong!");
+    res.send(error);
   }
 };
 
@@ -45,12 +44,12 @@ export const readBeer = async (req, res) => {
     const beers = await Beer.find({});
     res.json(beers);
   } catch (error) {
-    res.send("Something Wrong!");
+    res.send(error);
   }
 };
 
-const updateBeer = async (id, isFavorite) =>
-  await Beer.findOneAndUpdate({ _id: id }, { isFavorite: !isFavorite });
+const updateAndDeleteBeer = async (id, isFavorite) =>
+  await Beer.findOneAndDelete({ _id: id });
 
 export const deleteBeer = async (req, res, next) => {
   const {
@@ -61,6 +60,6 @@ export const deleteBeer = async (req, res, next) => {
     const beers = await Beer.find({});
     res.json(beers);
   } catch (error) {
-    res.send("Someting Wrong");
+    res.send(error);
   }
 };

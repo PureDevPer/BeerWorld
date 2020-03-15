@@ -95,6 +95,16 @@ class Beers extends Component {
     this.setState({ isFavorite: !isFavorite });
   };
 
+  async componentDidMount() {
+    const { data } = await axios.get("http://localhost:5000/beers");
+    const { id } = this.props;
+    data.forEach(beer => {
+      if (id === beer.id) this.setState({ isFavorite: beer.isFavorite });
+    });
+    // console.log(this.props);
+    // console.log(data, data[0].isFavorite);
+  }
+
   render() {
     const { isFavorite } = this.state;
     const { name, picture, description, abv } = this.props;
