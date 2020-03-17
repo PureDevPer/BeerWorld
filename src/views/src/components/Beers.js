@@ -83,7 +83,6 @@ class Beers extends Component {
   handleClick = () => {
     const { isFavorite } = this.state;
     const { id, picture, name, abv, description } = this.props;
-    console.log(this.props);
     axios.post("http://localhost:5000/data", {
       id,
       picture,
@@ -97,6 +96,7 @@ class Beers extends Component {
 
   async componentDidMount() {
     const { data } = await axios.get("http://localhost:5000/beers");
+    console.log(data);
     const { id } = this.props;
     data.forEach(beer => {
       if (id === beer.id) this.setState({ isFavorite: beer.isFavorite });
