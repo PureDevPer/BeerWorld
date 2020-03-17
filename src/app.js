@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // app.get("/", (req, res) => res.send("Hello"));
-app.get("/data", getBeer);
+app.get("/data/:id", getBeer);
 app.post("/data", postBeer);
 app.get("/beers", readBeer);
 app.get("/delete/:id", deleteBeer);

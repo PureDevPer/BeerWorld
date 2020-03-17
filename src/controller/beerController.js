@@ -7,10 +7,19 @@ dotenv.config();
 const API = process.env.API_KEY;
 
 export const getBeer = async (req, res) => {
-  const {
-    data: { data }
-  } = await axios.get(`https://api.brewerydb.com/v2/beers/?key=${API}`);
-  res.send(data);
+  try {
+    const {
+      params: { id }
+    } = req;
+    const {
+      data: { data }
+    } = await axios.get(
+      `https://api.brewerydb.com/v2/beers/?key=${API}&p=${id}`
+    );
+    res.json(data);
+  } catch (error) {
+    res.json(error);
+  }
 };
 
 export const postBeer = async (req, res) => {
@@ -23,7 +32,7 @@ export const postBeer = async (req, res) => {
     if (hasBeers) updateAndDeleteBeer(hasBeers._id);
     else createBeer(id, picture, name, abv, description, isFavorite);
   } catch (error) {
-    res.send(error);
+    res.json(error);
   }
 };
 
@@ -44,7 +53,7 @@ export const readBeer = async (req, res) => {
     const beers = await Beer.find({});
     res.json(beers);
   } catch (error) {
-    res.send(error);
+    res.json(error);
   }
 };
 
@@ -60,6 +69,6 @@ export const deleteBeer = async (req, res, next) => {
     const beers = await Beer.find({});
     res.json(beers);
   } catch (error) {
-    res.send(error);
+    res.json(error);
   }
 };

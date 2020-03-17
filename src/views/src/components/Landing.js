@@ -23,20 +23,28 @@ const BeersContainer = styled.div`
 class Landing extends Component {
   state = {
     beers: [],
-    isLoading: true
+    isLoading: true,
+    pageNumber: 1
   };
 
   async componentDidMount() {
     const { getBeerURL } = this.props;
-    const { data } = await axios.get(`http://localhost:5000/${getBeerURL}`);
-    this.setState({ beers: data, isLoading: false });
+    const { pageNumber } = this.state;
+    const { data } = await axios.get(
+      `http://localhost:5000/${getBeerURL}/${pageNumber}`
+    );
+    this.setState({
+      beers: data,
+      isLoading: false,
+      pageNumber: pageNumber + 1
+    });
   }
 
   render() {
     const { isLoading, beers } = this.state;
 
     return (
-      <Container>
+      <Container id="Container">
         {isLoading ? (
           <Loading />
         ) : (
