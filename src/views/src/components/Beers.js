@@ -9,6 +9,7 @@ const Container = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   margin-top: 40px;
+  height: inherit;
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25),
@@ -96,7 +97,7 @@ class Beers extends Component {
 
   async componentDidMount() {
     const { data } = await axios.get("http://localhost:5000/beers");
-    console.log(data);
+    // console.log(data);
     const { id } = this.props;
     data.forEach(beer => {
       if (id === beer.id) this.setState({ isFavorite: beer.isFavorite });
@@ -106,6 +107,7 @@ class Beers extends Component {
   render() {
     const { isFavorite } = this.state;
     const { name, picture, description, abv } = this.props;
+    console.log(picture);
     return (
       <Container>
         <BeersTop>
@@ -127,7 +129,7 @@ class Beers extends Component {
           </BeersTop__details>
         </BeersTop>
         {description ? (
-          <Description>{description.slice(0, 170)} ...</Description>
+          <Description>{description.slice(0, 120)} ...</Description>
         ) : (
           <Description></Description>
         )}

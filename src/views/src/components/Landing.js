@@ -19,12 +19,13 @@ const BeersContainer = styled.div`
   grid-gap: 50px;
   grid-row-gap: 50px;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-auto-rows: 1fr;
   padding: 0px 50px;
 `;
 
 const Scroll = styled(InfiniteScroll)`
   border-radius: 10px;
-  height: justify;
+  height: inherit;
 `;
 
 class Landing extends Component {
@@ -32,8 +33,7 @@ class Landing extends Component {
     beers: [],
     isLoading: true,
     pageNumber: 1,
-    hasMore: true,
-    isHome: true
+    hasMore: true
   };
 
   async componentDidMount() {
@@ -47,15 +47,13 @@ class Landing extends Component {
       this.setState({
         beers: data,
         isLoading: false,
-        pageNumber: pageNumber + 1,
-        isHome: true
+        pageNumber: pageNumber + 1
       });
     } else {
       const { data } = await axios.get(`http://localhost:5000/${getBeerURL}`);
       this.setState({
         beers: data,
-        isLoading: false,
-        isHome: false
+        isLoading: false
       });
     }
   }
@@ -80,32 +78,21 @@ class Landing extends Component {
   };
 
   render() {
-    const { isLoading, beers, hasMore, isHome } = this.state;
+    const { isLoading, beers, hasMore } = this.state;
 
     return (
-      <Container id="Container">
+      <Container>
         {isLoading ? (
           <Loading />
         ) : (
           <BeersContainer>
             {beers.map(beer =>
               beer.labels ? (
-                isHome ? (
-                  <Scroll
-                    dataLength={50}
-                    next={this.fetchMoreData}
-                    hasMore={hasMore}
-                  >
-                    <Beers
-                      key={beer.id}
-                      id={beer.id}
-                      name={beer.name}
-                      picture={beer.labels.medium}
-                      description={beer.description}
-                      abv={beer.abv}
-                    />
-                  </Scroll>
-                ) : (
+                <Scroll
+                  dataLength={50}
+                  next={this.fetchMoreData}
+                  hasMore={hasMore}
+                >
                   <Beers
                     key={beer.id}
                     id={beer.id}
@@ -114,8 +101,8 @@ class Landing extends Component {
                     description={beer.description}
                     abv={beer.abv}
                   />
-                )
-              ) : isHome ? (
+                </Scroll>
+              ) : (
                 <Scroll
                   dataLength={50}
                   next={this.fetchMoreData}
@@ -130,15 +117,6 @@ class Landing extends Component {
                     abv={beer.abv}
                   />
                 </Scroll>
-              ) : (
-                <Beers
-                  key={beer.id}
-                  id={beer.id}
-                  name={beer.name}
-                  picture={beerImage}
-                  description={beer.description}
-                  abv={beer.abv}
-                />
               )
             )}
           </BeersContainer>
