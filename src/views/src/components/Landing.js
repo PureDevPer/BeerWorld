@@ -3,7 +3,6 @@ import axios from "axios";
 import Beers from "./Beers";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "./Loading";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 import { beerImage } from "../assets/images";
 
@@ -37,49 +36,37 @@ class Landing extends Component {
   };
 
   async componentDidMount() {
-    const { getBeerURL } = this.props;
     const { pageNumber } = this.state;
+    const { data } = await axios.get(
+      `http://localhost:5000/data/${pageNumber}`
+    );
 
-    if (getBeerURL === "data") {
-      const { data } = await axios.get(
-        `http://localhost:5000/${getBeerURL}/${pageNumber}`
-      );
-      this.setState({
-        beers: data,
-        isLoading: false,
-        pageNumber: pageNumber + 1
-      });
-    } else {
-      const { data } = await axios.get(`http://localhost:5000/${getBeerURL}`);
-      this.setState({
-        beers: data,
-        isLoading: false
-      });
-    }
+    this.setState({
+      beers: data,
+      isLoading: false,
+      pageNumber: pageNumber + 1
+    });
   }
 
   fetchMoreData = async () => {
     const { pageNumber, beers } = this.state;
-    const { getBeerURL } = this.props;
     if (pageNumber > 23) {
       this.setState({ hasMore: false });
       return;
     }
 
-    if (getBeerURL === "data") {
-      const { data } = await axios.get(
-        `http://localhost:5000/${getBeerURL}/${pageNumber}`
-      );
-      this.setState({
-        beers: beers.concat(data),
-        pageNumber: pageNumber + 1
-      });
-    }
+    const { data } = await axios.get(
+      `http://localhost:5000/data/${pageNumber}`
+    );
+    this.setState({
+      beers: beers.concat(data),
+      pageNumber: pageNumber + 1
+    });
   };
 
   render() {
     const { isLoading, beers, hasMore } = this.state;
-
+    // console.log(favorite);
     return (
       <Container>
         {isLoading ? (
@@ -89,6 +76,8 @@ class Landing extends Component {
             {beers.map(beer =>
               beer.labels ? (
                 <Scroll
+                  key={beer.id}
+                  id={beer.id}
                   dataLength={50}
                   next={this.fetchMoreData}
                   hasMore={hasMore}
@@ -104,6 +93,8 @@ class Landing extends Component {
                 </Scroll>
               ) : (
                 <Scroll
+                  key={beer.id}
+                  id={beer.id}
                   dataLength={50}
                   next={this.fetchMoreData}
                   hasMore={hasMore}
@@ -125,9 +116,5 @@ class Landing extends Component {
     );
   }
 }
-
-Landing.propTypes = {
-  getBeerURL: PropTypes.string.isRequired
-};
 
 export default Landing;

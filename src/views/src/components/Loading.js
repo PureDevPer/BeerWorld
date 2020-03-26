@@ -7,8 +7,11 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 18px;
   margin-top: 13%;
+  text-transform: uppercase;
+  color: #ff7675;
 `;
 
 const Loading = () => {

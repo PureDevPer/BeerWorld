@@ -33,7 +33,7 @@ const Image = styled.img`
   top: -25px;
 `;
 
-const BeersTop__details = styled.div`
+const BeersTopDetails = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -97,7 +97,6 @@ class Beers extends Component {
 
   async componentDidMount() {
     const { data } = await axios.get("http://localhost:5000/beers");
-    // console.log(data);
     const { id } = this.props;
     data.forEach(beer => {
       if (id === beer.id) this.setState({ isFavorite: beer.isFavorite });
@@ -107,7 +106,7 @@ class Beers extends Component {
   render() {
     const { isFavorite } = this.state;
     const { name, picture, description, abv } = this.props;
-    console.log(picture);
+
     return (
       <Container>
         <BeersTop>
@@ -118,7 +117,7 @@ class Beers extends Component {
               <Image src={beerImage} alt={name} title={name} />
             )}
           </>
-          <BeersTop__details>
+          <BeersTopDetails>
             <Header>{name}</Header>
             {abv ? <Header>Abv: {abv}</Header> : <Header></Header>}
             <Header>
@@ -126,7 +125,7 @@ class Beers extends Component {
                 {isFavorite ? <HeartFull /> : <HeartEmpty />}
               </Button>
             </Header>
-          </BeersTop__details>
+          </BeersTopDetails>
         </BeersTop>
         {description ? (
           <Description>{description.slice(0, 120)} ...</Description>

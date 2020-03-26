@@ -9,6 +9,7 @@ const Header = styled.div`
   font-size: 30px;
   font-weight: 700;
   text-transform: uppercase;
+  color: #686de0;
 `;
 
 const Title = ({ text }) => {
