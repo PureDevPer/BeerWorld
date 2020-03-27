@@ -3,6 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import Title from "../components/Title";
 import Favorite from "../components/Beers";
+import Loading from "../components/Loading";
 
 const Container = styled.div`
   height: 100%;
@@ -22,33 +23,38 @@ const BeersContainer = styled.div`
 
 class Favorites extends Component {
   state = {
-    beers: []
+    beers: [],
+    isLoading: true
   };
 
   async componentDidMount() {
     const { data } = await axios.get("http://localhost:5000/beers");
-    this.setState({ beers: data });
+    this.setState({ beers: data, isLoading: false });
   }
 
   render() {
-    const { beers } = this.state;
+    const { beers, isLoading } = this.state;
 
     return (
       <>
         <Title text="Favorite Beer" />
         <Container>
-          <BeersContainer>
-            {beers.map(beer => (
-              <Favorite
-                key={beer.id}
-                id={beer.id}
-                name={beer.name}
-                picture={beer.picture}
-                description={beer.description}
-                abv={beer.abv}
-              />
-            ))}
-          </BeersContainer>
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <BeersContainer>
+              {beers.map(beer => (
+                <Favorite
+                  key={beer.id}
+                  id={beer.id}
+                  name={beer.name}
+                  picture={beer.picture}
+                  description={beer.description}
+                  abv={beer.abv}
+                />
+              ))}
+            </BeersContainer>
+          )}
         </Container>
       </>
     );
