@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Helmet from "react-helmet";
 import styled from "styled-components";
 import Title from "../components/Title";
 import Favorite from "../components/Beers";
@@ -37,6 +38,9 @@ class Favorites extends Component {
 
     return (
       <>
+        <Helmet>
+          <title>Favorites | Beer World</title>
+        </Helmet>
         <Title text="Favorite Beer" />
         <Container>
           {isLoading ? (
